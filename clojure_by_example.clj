@@ -1,7 +1,7 @@
 ; Basic example of a Clojure form / expression: A line of code (....)
 (println "Hello, world!")
 
-; Variables are called symbols in Clojure. Below will show data type of a: Symbol/
+; Constants are called symbols in Clojure. Below will show data type of a: Symbol
 ; ' will prevent a from from being evaluated
 (type 'a)
 
@@ -47,4 +47,37 @@
 ; Note: using Def will scope in namespace (user) instead of in the lexical scope, and should be avoided if you do not want to introduce state.
 
 ; ============== Functions ===============
+; A function is built up with the following (optional*) elements:
+; defn nameOfFunction
+; "Documentation"* - Readable with the doc function: (doc nameOfFunction)
+; {:metadata "metadata"}* - Readable with the meta function as passed the func as a var: (meta (var NameofFunction))
+; [arguments]
+; Function body
 
+(defn say-hello
+    "Function that says hello to a variable name"
+    {:author "Luuk"}
+    [name]
+    (println (str "Hello " name)))
+
+(say-hello "Bob")
+
+; Functions are first class objects in Clojure, and can be created using fn
+(fn [] (println "Hello world"))
+
+; As they are objects, they can be bound to a variable. 
+(def hello-func (fn [] (println "Hello")))
+(hello-func)
+
+; #() is shorthand for (fn []). You can use % to be replaced with arguments. If multiple: %1 %2 etc
+#(+ 1 %)
+(let [plus-multiple #(+ 1 %1 %2)]
+    (plus-multiple 10 20))
+
+; Functions can be passed to other functions.
+; A(n inner) function (say-something) that does something with an argument from an outer function (greeting) is called a closure.
+(def say-something (fn [name say] (println (str say name))))
+(def greeting (fn [name] (say-something name "Hi there, ")))
+(greeting "Bob")
+
+; ============== Namespaces ===============
