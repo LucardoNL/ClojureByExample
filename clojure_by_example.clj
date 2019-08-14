@@ -81,3 +81,38 @@
 (greeting "Bob")
 
 ; ============== Namespaces ===============
+; A namespace is a grouping of symbols used to organize related objects. Comparable to a module. 
+; We create a namespace with create-ns. We use the backtick so the symbol is not resolved. We move to a namespace with in-ns.
+; Things defined in a namespace are not available from other namespaces.
+(create-ns 'clojure.by.example)
+(in-ns 'clojure.by.example)
+
+(defn favorite-language [] "Clojure!")
+(favorite-language)
+(create-ns 'second)
+(in-ns 'second)
+(favorite-language)
+(all-ns)
+
+; To bring a namespace into the environment, we use require. We can alias them too (in a vector), and require multiple. 
+(require 'clojure.by.example)
+(clojure.by.example/favorite-language)
+
+(require '[clojure.by.example :as cbe]
+    '[clojure.core: as ccc])
+(cbe/favorite-language)
+
+; Refer will add contents of a namespace to environment without having to type the namespace. Use will combine require and refer.
+(refer 'clojure.by.example)
+(favorite-language)
+
+(use 'clojure.by.example)
+
+; To get a namespace from java, use import
+(import java.until.Date)
+(new Date)
+
+; NS
+; ns is a macro that creates a new namespace that can take the :require, :use, and :import keyword to skip separate steps above. It will also include more core. 
+
+; ============== Control Flow ===============
