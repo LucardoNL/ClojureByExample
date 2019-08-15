@@ -114,5 +114,69 @@
 
 ; NS
 ; ns is a macro that creates a new namespace that can take the :require, :use, and :import keyword to skip separate steps above. It will also include more core. 
+(ns example.namespace
+    (:require [clojure.java.io])
+    (:use [clojure.data])
+    (:import [java.util List Set]))
 
 ; ============== Control Flow ===============
+; IF takes a predicate, an true condition and an optional false / else condition. 
+(if true
+    (println "True!")
+    (println "False"))
+
+; To make multiple things happen in a condition, use DO
+(if true 
+    (do 
+    (println "True!")
+    (println "Still true!"))
+    (println "False!"))
+
+; if-let is an if statement combined with a variable assignement when a statement is truthy
+; Below uses the not-empty test combined with a (filter pos?) test
+; If we only use the filter and not not-empty, we would get an empty list which is not in fact falsey
+; not-empty return nil for an empty list, which is falsey.
+(defn pos-numbers [numbers]
+    (if-let [posi-nums (not-empty (filter pos? numbers))] ; Filter numbers if pos? numbers is truthy into posi-nums vector
+        posi-nums ; Resulting data (if truthy test)
+        "No positive numbers found.")) ; else
+(pos-numbers [1 2 -3 -4])
+(pos-numbers [-1 -2])
+
+; If you are not interested in an else, you can use when instead of if
+; When will do all content if true
+; When-let also exists
+(when true
+    (println "True")
+    (println "Also true"))
+
+; For finding a matching branch in a comparitive expression, use case
+(defn checkdigit [n]
+    (case n
+    1 "n is 1"
+    2 "n is 2"
+    (println "Not one or two")))
+(checkdigit 1)
+
+; For matching different if statement conditions, use cond.
+; Cond accepts the :else keyword
+(defn cat-num [n]
+    (cond
+        (= n 1) "n is 1"
+        (and (> n 3)(< n 10)) "n is between 3 and 10"
+        :else "uncategorized"
+            ))
+(cat-num 1)
+(cat-num 5)
+(cat-num 11)
+
+; You can use a predicate with condp for condition. In this case contains? is the predicate.
+; Todo: This is tricky to understand currently, must test with.
+(defn condp-test-2
+    [n]
+    (condp contains? n
+      #{1 2 3} "n is either 1 or 2 or 3"
+      "n is not 1 or 2 or 3"))
+(println (condp-test-2 2))
+
+; ============== Boolean ===============
