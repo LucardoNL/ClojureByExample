@@ -223,3 +223,29 @@
 (first [1 2 3 4])
 (.indexOf [1 2 3 4] 2)
 
+; ============== Sets ===============
+; A set is another variant to a list, with only unique values. 
+; It takes conj (and will ignore additional values already in the set).
+; Sets allow removal with disj(oin), sort, and the contains? test.
+#{1 2 3 4}
+(disj #{1 2 3 4} 1)
+(sort #{1 4 2 3})
+(contains? #{1 2 3 4} 1)
+
+; ============== Maps ===============
+; A map is a list with a key value structure. All kind of different data types are ok for keys, but usually one uses keyword
+{:firstkey "Netherlands" :secondkey "France"}
+
+; You can use get or a keyword used as key to retrieve the value. Not found returns nil
+(get {:firstkey "Netherlands" :secondkey "France"} :thirdkey)
+(:firstkey {:firstkey "Netherlands" :secondkey "France"})
+
+; assoc will let you add or replace key value pairs. merge will merge
+(assoc {:fk "NL" :sk "FR"} :tk "DE")
+(merge {:fk "NL" :sk "FR"} {:tk "DE" :frk "BE"})
+
+; Get keys and vals with those keywords
+(keys {:fk "NL", :sk "FR", :tk "DE", :frk "BE"})
+(vals {:fk "NL", :sk "FR", :tk "DE", :frk "BE"})
+
+; ============== Sequences ===============
