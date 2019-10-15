@@ -10,3 +10,18 @@
     )  
 )
 ; => 233168
+
+; Problem 2
+(reduce 
+    + 
+    (filter 
+        even? 
+            (loop [a 0 b 1 c ()] 
+                (if (> a 4000000)
+                    c
+                (recur b (+ a b) (conj c a))
+                )
+            )
+    )  
+)
+; => 4613732
