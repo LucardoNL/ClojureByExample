@@ -1,4 +1,4 @@
-; Problem 1
+; Problem 1: Find the sum of all the multiples of 3 or 5 below 1000.
 (reduce 
     + 
     (filter 
@@ -11,7 +11,7 @@
 )
 ; => 233168
 
-; Problem 2
+; Problem 2: By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 (reduce 
     + 
     (filter 
@@ -25,3 +25,19 @@
     )  
 )
 ; => 4613732
+
+; Problem 3: What is the largest prime factor of the number 600851475143?
+(defn is-prime [n]
+    (empty? 
+        (filter zero? (map 
+            #(mod n %) (range 2 (+ 1 (Math/sqrt n)))
+            )
+        )
+    )
+)
+
+
+
+
+
+
