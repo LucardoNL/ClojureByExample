@@ -36,6 +36,13 @@
     )
 )
 
+(defn largest-prime-factor [n]
+    ; We only have to search for square root of n: A prime factor can exist for n > sqrt(n),
+    ; but only for prime factor * non-prime factor
+    (reduce max (filter #(zero? (mod n %)) (filter is-prime (range 1 (Math/sqrt n)))))
+    )
+
+(largest-prime-factor 600851475143) ; => 6857
 
 
 
