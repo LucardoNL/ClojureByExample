@@ -42,9 +42,8 @@
     (reduce max (filter #(zero? (mod n %)) (filter is-prime (range 1 (Math/sqrt n)))))
     )
 
-(largest-prime-factor 600851475143) ; => 6857
+(largest-prime-factor 600851475143)
 
+; => 6857
 
-
-
-
+; Problem 4
